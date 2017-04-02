@@ -1,5 +1,7 @@
 import requests
 import argparse
+import sys
+import re
 
 
 def create_parser():
@@ -14,6 +16,20 @@ def create_parser():
 if __name__ == '__main__':
     parser = create_parser()
     namespace = parser.parse_args()
+
+
+def input_validation():
+    enter_dep = re.findall(r"[A-Z]{1,3}", sys.argv[1])
+    enter_dest = re.findall(r"[A-Z]{1,3}", sys.argv[2])
+    if sys.argv[1] == enter_dep and sys.argv[2] == enter_dest:
+        print ("The data is correct")
+    else:
+        print sys.argv[1], sys.argv[2], enter_dep, enter_dest
+        print ("The data entered is not correct")
+        sys.exit()
+
+
+input_validation()
 
 
 def get_res():
@@ -36,3 +52,5 @@ def get_res():
 
 
 print get_res().text
+
+
